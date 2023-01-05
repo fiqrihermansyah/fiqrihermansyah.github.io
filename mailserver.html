@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>Mail Server</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    
+    <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+
+
+      <header class="site-navbar site-navbar-target" role="banner">
+
+        <div class="container">
+          <div class="row align-items-center position-relative">
+
+            <div class="col-3 ">
+              <div class="site-logo">
+                <a href="index.html" class="font-weight-bold">Fiqri.</a>
+              </div>
+            </div>
+
+            <div class="col-9  text-right">
+              
+
+              <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+
+              
+
+              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                  <li><a href="index.html" class="nav-link">Home</a></li>
+                  <li><a href="cv/index.html" class="nav-link">About Me (CV)</a></li>
+                </ul>
+              </nav>
+            </div>
+
+            
+          </div>
+        </div>
+
+      </header>
+
+    <div class="ftco-blocks-cover-1">
+      <div class="site-section-cover overlay" data-stellar-background-ratio="0.5" style="background-image: url('images/hero_1.jpg')">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-7">
+              <span class="d-block mb-3 text-white" data-aos="fade-up">centOS 7 <span class="mx-2 text-primary">&bullet;</span> VirtualBox</span>
+                <h1 class="mb-4" data-aos="fade-up" data-aos-delay="100">Mail Server</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 blog-content col-xl-9">
+			 <h2>Install &amp; Konfigurasi Postfix</h2>
+            <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> yum install postfix -y</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/postfix/main.cf</span><br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 83 </span> pada kata <span style="color: #000000; font-weight: bold;"> " mydomain = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan masukan domain kita
+    					<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 75 </span> pada kata <span style="color: #000000; font-weight: bold;"> " myhostname = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan masukan domain dari mail server
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 99 </span> pada kata <span style="color: #000000; font-weight: bold;"> " myorigin = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 116 </span> pada kata <span style="color: #000000; font-weight: bold;"> " inet_interfaces = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan ganti <span style="color: #000000; font-weight: bold;">localhost</span> menjadi <span style="color: #000000; font-weight: bold;">all</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 164 </span> pada kata <span style="color: #000000; font-weight: bold;"> " mydestination = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan tambahkan <span style="color: #000000; font-weight: bold;"> mydestination </span> 
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 264 </span> pada kata <span style="color: #000000; font-weight: bold;"> " mynetworks = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan tambahkan IP centOS
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 419 </span> pada kata <span style="color: #000000; font-weight: bold;"> " home_mailbox " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan isikan <span style="color: #000000; font-weight: bold;"> Maildir/ </span> 
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 574 </span> pada kata <span style="color: #000000; font-weight: bold;"> " smptd_banner " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan isikan <span style="color: #000000; font-weight: bold;"> $myhostname ESMTP </span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> paling bawah </span>  dan isikan skrip berikut<br>
+						<span style="color: #BE5500; font-weight: bold;">
+						message_size_limit = 10485760<br>
+						mailbox_size_limit = 1073741824<br>
+						<br>
+						smtpd_sasl_type = dovecot<br>
+						smtpd_sasl_path = private/auth<br>
+						smtpd_sasl_auth_enable = yes<br>
+						smtpd_sasl_security_options = noanonymous<br>
+						smtpd_sasl_local_domain = $myhostname<br>
+						smtpd_recipient_restrictions = permit_mynetworks,permit_auth_destination,permit_sasl_authenticated,reject
+						</span><br><br>
+							
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> systemctl restart postfix</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> systemctl enable postfix</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> firewall-cmd --add-service=smtp --permanent</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> firewall-cmd --reload</span><br><br>
+			  
+			  <h2>Install &amp; Konfigurasi Dovecot</h2>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">yum install dovecot -y</span><br>
+    					<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/dovecot/dovecot.conf</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 24 </span> pada kata <span style="color: #000000; font-weight: bold;"> " protocols " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan pastikan isinya <span style="color: #000000; font-weight: bold;"> imap pop3 lmtp  </span> 
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 30 </span> pada kata <span style="color: #000000; font-weight: bold;"> " listen " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan hanya kita isikan <span style="color: #000000; font-weight: bold;"> * </span><br><br>
+							
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/dovecot/conf.d/10-auth.conf</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 10 </span> pada kata <span style="color: #000000; font-weight: bold;"> " disable_plaintext_auth " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan ganti dari yes menjadi <span style="color: #000000; font-weight: bold;"> no </span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 100 </span> pada kata <span style="color: #000000; font-weight: bold;"> " auth_mechanism " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan tambahkan kata <span style="color: #000000; font-weight: bold;"> login </span> dibelakang plain<br><br>
+							
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/dovecot/conf.d/10-mail.conf</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 30 </span> pada kata <span style="color: #000000; font-weight: bold;"> " mail_location " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan kita isi dengan <span style="color: #000000; font-weight: bold;"> maildir:~/Maildir </span><br><br>
+						
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/dovecot/conf.d/10-master.conf</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 96 </span> pada kata <span style="color: #000000; font-weight: bold;"> " mail_location " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar pada unix sampai }</span> dan kita edit menjadi <br><span style="color: #BE5500; font-weight: bold;">
+						unix_listener /var/spool/postfix/private/auth {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mode = 0666<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user = postfix<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group = postfix<br>
+						}
+						</span><br><br>
+						
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/dovecot/conf.d/10-ssl.conf</span>
+						<br>Menuju baris <span style="color: #0DE600; font-weight: bold;"> 8 </span> pada kata <span style="color: #000000; font-weight: bold;"> " ssl = " </span> 
+						<span style="color: #E40001; font-weight: bold;">hapus tanda pagar</span> dan kita isi dengan <span style="color: #000000; font-weight: bold;"> no </span><br><br>
+						
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> systemctl restart dovecot</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> systemctl enable dovecot</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> firewall-cmd --add-port={110/tcp,143/tcp} --permanent</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;"> firewall-cmd --reload</span><br><br>
+			  
+			  <h2>Menambah User</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">useradd <b>namauser</b></span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">passwd <b>namauser</b></span><br><BR>
+			  
+			  <h2>Pengujian (Pengiriman)</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">telnet mail.fiqri.mkt 25</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">halo fiqri</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">mail from: fiqri</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">rcpt to: herman</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">data</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">Isi pesan tulis disini</span> jika pesan sudah diisi, lalu enter dan enter lagi kemudian tutup dengan tanda <span style="color: #000000; font-weight: bold;">titik (.)</span><br><br>
+			  
+			  <h2>Pengujian (Penerimaan)</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">telnet mail.fiqri.mkt 110</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">user herman</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">pass herman</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">stat</span><br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">retr 1</span> berfungsi membuka email menurut nomer yang diinput<br>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">quit</span>
+<div class="pt-5"> </div>
+</div>
+</div>
+      </div>
+    </div>
+    
+    
+
+    <footer class="site-footer">
+      <div class="container">
+<div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+            <div class="border-top pt-5">
+              <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true">Fiqri</i> by NiHikari
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/aos.js"></script>
+
+    <script src="js/main.js"></script>
+
+  </body>
+
+</html>
+

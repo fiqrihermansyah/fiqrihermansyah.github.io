@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>Security Server</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    
+    <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+
+
+      <header class="site-navbar site-navbar-target" role="banner">
+
+        <div class="container">
+          <div class="row align-items-center position-relative">
+
+            <div class="col-3 ">
+              <div class="site-logo">
+                <a href="index.html" class="font-weight-bold">Fiqri.</a>
+              </div>
+            </div>
+
+            <div class="col-9  text-right">
+              
+
+              <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+
+              
+
+              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                  <li><a href="index.html" class="nav-link">Home</a></li>
+                  <li><a href="cv/index.html" class="nav-link">About Me (CV)</a></li>
+                </ul>
+              </nav>
+            </div>
+
+            
+          </div>
+        </div>
+
+      </header>
+
+    <div class="ftco-blocks-cover-1">
+      <div class="site-section-cover overlay" data-stellar-background-ratio="0.5" style="background-image: url('images/hero_1.jpg')">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-7">
+              <span class="d-block mb-3 text-white" data-aos="fade-up">centOS 7 <span class="mx-2 text-primary">&bullet;</span> VirtualBox</span>
+                <h1 class="mb-4" data-aos="fade-up" data-aos-delay="100">Security Server<br>(Amavisd &amp; Clamav)</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 blog-content col-xl-9">
+			 <h2>Amavisd untuk Filter Spam &amp; Virus</h2>
+            <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">yum -y install amavisd-new</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/amavisd/amavisd.conf</span><br>
+    Ubah baris berikut pada <span style="color: #EB0003; font-weight: bold;">amavisd.conf</span> hilangkan tanda <span style="color: #EB0003; font-weight: bold;"> # </span> pada <span style="color: #EB0003; font-weight: bold;">$notify_method </span> dan <span style="color: #EB0003; font-weight: bold;">$forward_method </span><br>
+    <span style="color: #ffa800; font-weight: bold;">$mydomain = 'saad.web.id';</span><br>
+    <span style="color: #ffa800; font-weight: bold;">$myhostname = 'webmin.saad.web.id';</span><br>
+    <span style="color: #ffa800; font-weight: bold;">$notify_method = 'smtp:[127.0.0.1]:10025';</span><br>
+    <span style="color: #ffa800; font-weight: bold;">$forward_method = 'smtp:[127.0.0.1]:10025';</span><br><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">systemctl start amavisd</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">systemctl enable amavisd</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/postfix/main.cf</span><br>Tambahkan pada baris paling bawah <br>
+    <span style="color: #ffa800; font-weight: bold;">content_filter=smtp-amavis:[127.0.0.1]:10024</span><br><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/postfix/master.cf
+    </span><br>tambahkan baris berikut pada bagian paling bawah<br>
+    <span style="color: #ffa800; font-weight: bold;">
+    smtp-amavis unix -    -    n    -    2 smtp<br>
+    -o smtp_data_done_timeout=1200<br>
+    -o smtp_send_xforward_command=yes<br>
+    -o disable_dns_lookups=yes<br>
+127.0.0.1:10025 inet n    -    n    -    - smtpd<br>
+    -o content_filter=<br>
+    -o local_recipient_maps=<br>
+    -o relay_recipient_maps=<br>
+    -o smtpd_restriction_classes=<br>
+    -o smtpd_client_restrictions=<br>
+    -o smtpd_helo_restrictions=<br>
+    -o smtpd_sender_restrictions=<br>
+    -o smtpd_recipient_restrictions=permit_mynetworks,reject<br>
+    -o mynetworks=127.0.0.0/8<br>
+    -o strict_rfc821_envelopes=yes<br>
+    -o smtpd_error_sleep_time=0<br>
+    -o smtpd_soft_error_limit=1001<br>
+    -o smtpd_hard_error_limit=1000</span><br><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">systemctl restart postfix</span><br><br>Cek log dengan perintah<br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">tail -f /var/log/maillog</span><br><br>
+			  
+			  <h2>Membersihkan Malware dengan Clamav</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">yum install -y epel-release clamav</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">freshclam</span><br><br>Kita sudah bisa scan dengan command <span style="color: #EB0003; font-weight: bold;">clamscan -r</span>, sebagai contoh<br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">clamscan -r /home</span><BR><BR>
+			  
+			  <h2>Scan Clamav (log &amp; quarantine)</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">mkdir -p /opt/clamav/log/</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">mkdir -p /opt/clamav/quarantine/</span><br><br>Sebagai contoh kita akan scan folder /home<br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">clamscan -r --log=/opt/clamav/log/scan.log --move=/opt/clamav/quarantine /home</span>
+<div class="pt-5"> </div>
+</div>
+</div>
+      </div>
+    </div>
+    
+    
+
+    <footer class="site-footer">
+      <div class="container">
+<div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+            <div class="border-top pt-5">
+              <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true">Fiqri</i> by NiHikari
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/aos.js"></script>
+
+    <script src="js/main.js"></script>
+
+  </body>
+
+</html>
+

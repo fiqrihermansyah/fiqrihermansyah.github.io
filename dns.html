@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>DNS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    
+    <div class="site-wrap" id="home-section">
+
+      <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+          <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+          </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+      </div>
+
+
+
+      <header class="site-navbar site-navbar-target" role="banner">
+
+        <div class="container">
+          <div class="row align-items-center position-relative">
+
+            <div class="col-3 ">
+              <div class="site-logo">
+                <a href="index.html" class="font-weight-bold">Fiqri.</a>
+              </div>
+            </div>
+
+            <div class="col-9  text-right">
+              
+
+              <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+
+              
+
+              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                  <li><a href="index.html" class="nav-link">Home</a></li>
+                  <li><a href="cv/index.html" class="nav-link">About Me (CV)</a></li>
+                </ul>
+              </nav>
+            </div>
+
+            
+          </div>
+        </div>
+
+      </header>
+
+    <div class="ftco-blocks-cover-1">
+      <div class="site-section-cover overlay" data-stellar-background-ratio="0.5" style="background-image: url('images/hero_1.jpg')">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-7">
+              <span class="d-block mb-3 text-white" data-aos="fade-up">centOS 7 <span class="mx-2 text-primary">&bullet;</span> VirtualBox</span>
+                <h1 class="mb-4" data-aos="fade-up" data-aos-delay="100">DNS<br>(Domain Name System)</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 blog-content col-xl-9">
+			 <h2>Install DNS Server</h2>
+            <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">yum install bind bind-utils -y</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/named.conf</span><br>Ubah atau tambahkan baris kode<br>
+    <span style="color: #ffa800; font-weight: bold;">listen-on port 53 { 127.0.0.1; 192.168.56.50; };<br>
+    allow-query     { localhost; 192.168.56.50; any; };<br>
+    allow-query-cache { localhost; 192.168.56.50; any; };</span><br><br>Hasilnya akan seperti ini<br>
+    <img src="images/dns1.png"><br><br>Kemudian tambahkan zone (nama domain) dan reverse (alamat IP).<br>
+    <span style="color: #ffa800; font-weight: bold;">
+    zone "cloudx.mks" {<br>
+    &nbsp;&nbsp;&nbsp;type master;<br>
+    &nbsp;&nbsp;&nbsp;file "/etc/named/cloudx.mks.zone";<br>
+    };<br>
+ 
+    zone "56.168.192.in-addr.arpa" IN {<br>
+    &nbsp;&nbsp;&nbsp;type master;<br>
+    &nbsp;&nbsp;&nbsp;file "/etc/named/56.168.192.rev";<br>
+    };</span><br><br>Hasilnya seperti ini<br>
+    <img src="images/dns2.png"><br><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/named/cloudx.mks.zone</span><br>
+    <span style="color: #ffa800; font-weight: bold;">
+    $TTL&nbsp;&nbsp;&nbsp;&nbsp;86400<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SOA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cloudx.mks. root.cloudx.mks. (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018092501&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Serial<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Refresh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Retry<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;604800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Expire<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;86400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Minimum TTL<br>
+)<br>
+<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ns1.cloudx.mks.<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ns2.cloudx.mks.<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.56.50<br>
+ns1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.56.50<br>
+ns2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.56.50<br>
+www&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CNAME&nbsp;&nbsp;&nbsp;cloudx.mks.<br>
+blog&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.56.50<br><br>
+    </span>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nano /etc/named/56.168.192.rev
+</span><br>Tambahkan pada baris paling bawah <br>
+    <span style="color: #ffa800; font-weight: bold;">
+$TTL&nbsp;&nbsp;&nbsp;&nbsp;86400<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SOA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cloudx.mks. root.cloudx.mks. (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018092501&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Serial<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Refresh<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Retry<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;604800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Expire<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;86400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;Minimum TTL<br>
+)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      NS      ns1.cloudx.mks.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      NS      ns2.cloudx.mks.<br>
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      A       192.168.56.50<br>
+ns1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      A       192.168.56.50<br>
+ns2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      A       192.168.56.50<br>
+50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      PTR     cloudx.mks.<br>
+50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IN      PTR     blog.cloudx.mks.
+    </span><br><br>
+<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">
+systemctl enable named</span><br>
+<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">
+systemctl restart named</span><br>
+<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">
+nano /etc/resolv.conf</span><br>
+<span style="color: #ffa800; font-weight: bold;">search cloudx.mks<br>
+nameserver 192.168.56.50 </span><br><br>
+			  
+			  <h2>Install Web Server</h2>
+						<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">yum install httpd -y</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">systemctl enable httpd</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">systemctl start httpd</span><br><br>
+			  
+			  <h2>Konfigurasi Firewall</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">firewall-cmd --add-service=dns --permanent</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">firewall-cmd --add-service=http --permanent</span><br>
+    <span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">firewall-cmd --reload</span><BR><BR>
+			  
+			  <h2>Pengujian</h2>
+			  			<span style="color: #000000; font-weight: bold;">[root@localhost ~]# </span><span style="color: #062873; font-weight: bold;">nslookup cloudx.mks</span><br>Hasilnya<br>
+    					<span style="color: #ffa800; font-weight: bold;">Server:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.56.50<br>
+Address:&nbsp;&nbsp;192.168.56.50#53<br>
+<br>
+Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cloudx.mks<br>
+Address: 192.168.56.50</span><br><br>
+						<span style="color: #000000; font-weight: bold;">Kita juga bisa mengujinya dengan cara membuka browser dan mengetikan<BR> DNS yang sudah kita buat (pastikan IP centOS dan PC sudah 1 network)</span>
+			  
+<div class="pt-5"> </div>
+</div>
+</div>
+      </div>
+    </div>
+    
+    
+
+    <footer class="site-footer">
+      <div class="container">
+<div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+            <div class="border-top pt-5">
+              <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true">Fiqri</i> by NiHikari
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.fancybox.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/aos.js"></script>
+
+    <script src="js/main.js"></script>
+
+  </body>
+
+</html>
+
