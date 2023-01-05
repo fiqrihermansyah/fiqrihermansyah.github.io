@@ -1,1 +1,0 @@
-# fiqrihermansyah.github.io
